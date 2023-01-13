@@ -42,6 +42,10 @@ let countDownTimer = 100
 // Create a variable to store which question we are on
 let questionNumber = 0
 
+// Create a variable to keep the user score
+
+let userScore = 0
+
 // Assign variable to div html element '#start-screen'
 let startScreen = document.querySelector('#start-screen')
 
@@ -128,7 +132,14 @@ function showQuestion(question) {
 
         choice.addEventListener('click', function(event){
             let element = event.target
-            console.log(element.dataset.choice)
+
+            let userChoice = (element.dataset.choice)
+            
+            let correctAnswer = (question.correctAnswer)
+
+            //console.log(correctAnswer)
+
+            checkAnswer(correctAnswer, userChoice)
 
           })
         // Append the button to the questionChoices element
@@ -138,6 +149,31 @@ function showQuestion(question) {
         j++
     }
 
+    function checkAnswer(correctAnswer, userAnswer){
 
+        //console.log('Correct: ' +correctAnswer)
+        //console.log('User: ' +userAnswer)
+        //let questionNumber = correctAnswer
+        //let answer = userAnswer
+
+        // Show the feedBack screen
+        feedbackScreen.classList.remove('hide')
+        // If the user select the correct answer, increase their score, show feedback
+        if (correctAnswer === userAnswer){
+            // Increase user score
+            userScore++
+
+            // Show feedback message
+            feedbackScreen.textContent = 'Correct!'
+            
+        // If the user is incorrect, show feedback, decrease timer
+        } else {
+            // Decrease timer
+            countDownTimer = countDownTimer - 10
+
+            // Show feedback message
+            feedbackScreen.textContent = 'Incorrect!'
+        }
+    }
 
 }
