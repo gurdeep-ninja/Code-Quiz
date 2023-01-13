@@ -17,13 +17,6 @@
 
 // Tasks required
 
-// Start a timer when 'Start Quiz' button is clicked
-// 1 Need an event listener on the start quiz button click
-
-// Display the first question & multiple choice answers to the user
-// 1 need some questions and answers for user.
-// 2 could use an
-
 // Record which answer the user clicks on
 
 // Check if answer is correct
@@ -43,6 +36,9 @@ let start = document.querySelector('#start')
 // Assign variable to span html element '#time'
 let time = document.querySelector('#time')
 
+// Create a variable to keep track of the countdown timer
+let countDownTimer = 100
+
 // Assign variable to div html element '#start-screen'
 let startScreen = document.querySelector('#start-screen')
 
@@ -55,18 +51,36 @@ let endScreen = document.querySelector('#end-screen')
 // Assign variable to div html element '#end-screen'
 let feedbackScreen = document.querySelector('#feedback')
 
+
+// Start a timer when 'Start Quiz' button is clicked
+// 1 Need an event listener on the start quiz button click
+
+// Display the first question & multiple choice answers to the user
+// 1 need some questions and answers for user.
+// 2 could use an
+
 // Task 1 - Starting the quiz
 
 // 1. Event listener on button click - starts the quiz
 // 2. Hide the #start-screen element & show the #questions element
 
 start.addEventListener('click',function(event){
+
+    // Show initial countdown value before starting timer
+    time.textContent = countDownTimer
     
     // use setAttribute to set the class to 'hide'
     startScreen.setAttribute('class','hide')
-    
+
     // use the setAttribute to set the class to '' (shows element)
     questionsScreen.setAttribute('class','')
+
+    // Run interval every 1 second to start countdown timer
+    setInterval(function(){
+        countDownTimer--
+        console.log(countDownTimer)
+        time.textContent = countDownTimer
+    }, 1000);
     console.log("start has been clicked")
 
 })
