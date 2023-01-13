@@ -64,6 +64,8 @@ let questionTitle = document.querySelector('#question-title')
 // Assign variable to question choices
 let questionChoices = document.querySelector('#choices')
 
+let gameEnded = false
+
 // Start a timer when 'Start Quiz' button is clicked
 // 1 Need an event listener on the start quiz button click
 
@@ -88,9 +90,14 @@ start.addEventListener('click', function (event) {
     questionsScreen.setAttribute('class', '')
 
     // Run interval every 1 second to start countdown timer
-    setInterval(function () {
+    let myInterval = setInterval(function () {
         countDownTimer--
         time.textContent = countDownTimer
+        console.log(questionNumber + ' ' + questions.length)
+
+        if (gameEnded) {
+            clearInterval(myInterval)
+        }
     }, 1000);
 
     // Call showQuestion function to display the question on the screen
@@ -108,6 +115,13 @@ start.addEventListener('click', function (event) {
 //     },
 
 function showQuestion(question) {
+
+
+    // Reset the question
+    questionTitle.innerHTML = ''
+
+    // Reset the choices
+    questionChoices.innerHTML = ''
 
     // Get the question from the question object being passed
     // To do work on changing 'question' conflict/ambiguous name 
@@ -127,53 +141,73 @@ function showQuestion(question) {
 
         // Set the text of the button (choice)
         choice.textContent = j + '. ' + question.choices[i]
-        
+
         choiceText = question.choices[i]
 
-        choice.addEventListener('click', function(event){
+        choice.addEventListener('click', function (event) {
             let element = event.target
 
             let userChoice = (element.dataset.choice)
-            
+
             let correctAnswer = (question.correctAnswer)
 
             //console.log(correctAnswer)
 
             checkAnswer(correctAnswer, userChoice)
 
-          })
+        })
         // Append the button to the questionChoices element
-        questionChoices.appendChild(choice)          
+        questionChoices.appendChild(choice)
 
         // Increment j by 1
         j++
     }
+}
 
-    function checkAnswer(correctAnswer, userAnswer){
+function checkAnswer(correctAnswer, userAnswer) {
 
-        //console.log('Correct: ' +correctAnswer)
-        //console.log('User: ' +userAnswer)
-        //let questionNumber = correctAnswer
-        //let answer = userAnswer
+    //console.log('Correct: ' +correctAnswer)
+    //console.log('User: ' +userAnswer)
+    //let questionNumber = correctAnswer
+    //let answer = userAnswer
 
-        // Show the feedBack screen
-        feedbackScreen.classList.remove('hide')
-        // If the user select the correct answer, increase their score, show feedback
-        if (correctAnswer === userAnswer){
-            // Increase user score
-            userScore++
+    // Show the feedBack screen
+    feedbackScreen.classList.remove('hide')
+    // If the user select the correct answer, increase their score, show feedback
+    if (correctAnswer === userAnswer) {
+        // Increase user score
+        userScore++
 
-            // Show feedback message
-            feedbackScreen.textContent = 'Correct!'
-            
+        // Show feedback message
+        feedbackScreen.textContent = 'Correct!'
+
         // If the user is incorrect, show feedback, decrease timer
-        } else {
-            // Decrease timer
-            countDownTimer = countDownTimer - 10
+    } else {
+        // Decrease timer
+        countDownTimer = countDownTimer - 10
 
-            // Show feedback message
-            feedbackScreen.textContent = 'Incorrect!'
-        }
+        // Show feedback message
+        feedbackScreen.textContent = 'Incorrect!'
     }
+    questionNumber++
+    checkQuestionCounter()
 
+}
+
+function checkQuestionCounter() {
+    // If the user hasn't answered all the question, continue the quiz
+    if (questionNumber !== questions.length) {
+        showQuestion(questions[questionNumber])
+    } else {
+        gameFinished()
+    }
+    // Increment the question Number so we can progress in the quiz
+
+}
+
+function gameFinished() {
+
+    gameEnded = true
+
+    questionsScreen.classList.add('hide') 
 }
