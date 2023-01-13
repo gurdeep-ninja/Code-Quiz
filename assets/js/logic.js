@@ -35,7 +35,7 @@
 
 // Show the score to the user and let them save their result
 
-// set variable to HTML elements
+// Set variable to HTML elements
 
 // Assign variable to button '#submit'
 let start = document.querySelector('#start') 
@@ -54,3 +54,19 @@ let endScreen = document.querySelector('#end-screen')
 
 // Assign variable to div html element '#end-screen'
 let feedbackScreen = document.querySelector('#feedback')
+
+// Task 1 - Starting the quiz
+
+// 1. Event listener on button click - starts the quiz
+// 2. Hide the #start-screen element & show the #questions element
+
+start.addEventListener('click',function(event){
+    
+    // use setAttribute to set the class to 'hide'
+    startScreen.setAttribute('class','hide')
+    
+    // use the setAttribute to set the class to '' (shows element)
+    questionsScreen.setAttribute('class','')
+    console.log("start has been clicked")
+
+})
