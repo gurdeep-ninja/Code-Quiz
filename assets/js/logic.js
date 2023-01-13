@@ -31,7 +31,7 @@
 // Set variable to HTML elements
 
 // Assign variable to button '#submit'
-let start = document.querySelector('#start') 
+let start = document.querySelector('#start')
 
 // Assign variable to span html element '#time'
 let time = document.querySelector('#time')
@@ -72,19 +72,19 @@ let questionChoices = document.querySelector('#choices')
 // 1. Event listener on button click - starts the quiz
 // 2. Hide the #start-screen element & show the #questions element
 
-start.addEventListener('click',function(event){
+start.addEventListener('click', function (event) {
 
     // Show initial countdown value before starting timer
     time.textContent = countDownTimer
-    
+
     // use setAttribute to set the class to 'hide'
-    startScreen.setAttribute('class','hide')
+    startScreen.setAttribute('class', 'hide')
 
     // use the setAttribute to set the class to '' (shows element)
-    questionsScreen.setAttribute('class','')
+    questionsScreen.setAttribute('class', '')
 
     // Run interval every 1 second to start countdown timer
-    setInterval(function(){
+    setInterval(function () {
         countDownTimer--
         console.log(countDownTimer)
         time.textContent = countDownTimer
@@ -92,8 +92,8 @@ start.addEventListener('click',function(event){
 
     // Call showQuestion function to display the question on the screen
     showQuestion(questions[questionNumber])
-        
-    
+
+
 
 })
 
@@ -104,12 +104,33 @@ start.addEventListener('click',function(event){
 //         correctAnswer: 'booleans'
 //     },
 
-function showQuestion(question){
-    questionTitle.textContent = question.question
-   //console.log(question.question)
+function showQuestion(question) {
 
-    question.choices.forEach(function(element){
-        console.log(element)
-    })
-    
+    // Get the question from the question object being passed
+    // To do work on changing 'question' conflict/ambiguous name 
+    questionTitle.textContent = question.question
+    //console.log(question.question)
+
+    // setting j for number visualisation against choice
+    let j = 1;
+
+    for (i = 0; i < question.choices.length; i++) {
+
+        // Create a button html element (choice)
+        let choice = document.createElement('button')
+
+        // create an attribute called choice (will use to verify correct answer)
+        choice.dataset.choice = question.choices[i]
+
+        // Set the text of the button (choice)
+        choice.textContent = j + '. ' + question.choices[i]
+
+        questionChoices.appendChild(choice)
+
+        // Increment j by 1
+        j++
+    }
+
+
+
 }
