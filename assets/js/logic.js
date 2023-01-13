@@ -81,6 +81,12 @@ start.addEventListener('click',function(event){
         console.log(countDownTimer)
         time.textContent = countDownTimer
     }, 1000);
-    console.log("start has been clicked")
+    
+    questions.forEach(function(element){
+        console.log(element)
+    })
 
 })
+
+
+console.log(questions)
