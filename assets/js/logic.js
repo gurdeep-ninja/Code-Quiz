@@ -51,6 +51,11 @@ let endScreen = document.querySelector('#end-screen')
 // Assign variable to div html element '#end-screen'
 let feedbackScreen = document.querySelector('#feedback')
 
+// Assign variable to question title
+let questionTitle = document.querySelector('#question-title')
+
+// Assign variable to question choices
+let questionChoices = document.querySelector('#choices')
 
 // Start a timer when 'Start Quiz' button is clicked
 // 1 Need an event listener on the start quiz button click
@@ -81,12 +86,23 @@ start.addEventListener('click',function(event){
         console.log(countDownTimer)
         time.textContent = countDownTimer
     }, 1000);
-    
+
     questions.forEach(function(element){
-        console.log(element)
+        showQuestion(element)
+        
     })
 
 })
 
+// let questions = [
+//     {
+//         question: 'Commonly used data types DO NOT include:',
+//         choices: ['strings','booleans','alerts','numbers'],
+//         correctAnswer: 'booleans'
+//     },
 
-console.log(questions)
+function showQuestion(question){
+    questionTitle.textContent = question.question
+    console.log(question.question)
+    
+}
