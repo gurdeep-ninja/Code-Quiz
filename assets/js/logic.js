@@ -86,7 +86,6 @@ start.addEventListener('click', function (event) {
     // Run interval every 1 second to start countdown timer
     setInterval(function () {
         countDownTimer--
-        console.log(countDownTimer)
         time.textContent = countDownTimer
     }, 1000);
 
@@ -124,8 +123,16 @@ function showQuestion(question) {
 
         // Set the text of the button (choice)
         choice.textContent = j + '. ' + question.choices[i]
+        
+        choiceText = question.choices[i]
 
-        questionChoices.appendChild(choice)
+        choice.addEventListener('click', function(event){
+            let element = event.target
+            console.log(element.dataset.choice)
+
+          })
+        // Append the button to the questionChoices element
+        questionChoices.appendChild(choice)          
 
         // Increment j by 1
         j++
