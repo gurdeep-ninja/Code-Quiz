@@ -39,6 +39,9 @@ let time = document.querySelector('#time')
 // Create a variable to keep track of the countdown timer
 let countDownTimer = 100
 
+// Create a variable to store which question we are on
+let questionNumber = 0
+
 // Assign variable to div html element '#start-screen'
 let startScreen = document.querySelector('#start-screen')
 
@@ -87,10 +90,10 @@ start.addEventListener('click',function(event){
         time.textContent = countDownTimer
     }, 1000);
 
-    questions.forEach(function(element){
-        showQuestion(element)
+    // Call showQuestion function to display the question on the screen
+    showQuestion(questions[questionNumber])
         
-    })
+    
 
 })
 
@@ -103,6 +106,10 @@ start.addEventListener('click',function(event){
 
 function showQuestion(question){
     questionTitle.textContent = question.question
-    console.log(question.question)
+   //console.log(question.question)
+
+    question.choices.forEach(function(element){
+        console.log(element)
+    })
     
 }

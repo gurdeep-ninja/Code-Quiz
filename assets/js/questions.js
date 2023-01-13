@@ -3,8 +3,8 @@
 let questions = [
     {
         question: 'Commonly used data types DO NOT include:',
-        choices: ['strings','booleans','alerts','numbers'],
-        correctAnswer: 'booleans'
+        choices: ['Strings','Booleans','Alerts','Numbers'],
+        correctAnswer: 'Booleans'
     },
     {
         question: 'The condition of an if/else statement is enclosed within ____',
