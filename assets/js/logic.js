@@ -7,7 +7,7 @@
 
 // A start button that when clicked a timer starts and the first question appears.
 
-// Questions contain buttons for each answer.
+// Questions contain click event for each answer.
 // When answer is clicked, the next question appears
 // If the answer clicked was incorrect then subtract time from the clock
 // The quiz should end when all questions are answered or the timer reaches 0.
@@ -34,3 +34,23 @@
 // If all the questions are answered OR the timer runs out, end the quiz
 
 // Show the score to the user and let them save their result
+
+// set variable to HTML elements
+
+// Assign variable to button '#submit'
+let start = document.querySelector('#start') 
+
+// Assign variable to span html element '#time'
+let time = document.querySelector('#time')
+
+// Assign variable to div html element '#start-screen'
+let startScreen = document.querySelector('#start-screen')
+
+// Assign variable to div html element '#questions'
+let questionsScreen = document.querySelector('#questions')
+
+// Assign variable to div html element '#end-screen'
+let endScreen = document.querySelector('#end-screen')
+
+// Assign variable to div html element '#end-screen'
+let feedbackScreen = document.querySelector('#feedback')
