@@ -37,7 +37,7 @@ let start = document.querySelector('#start')
 let time = document.querySelector('#time')
 
 // Create a variable to keep track of the countdown timer
-let countDownTimer = 100
+let countDownTimer = 10
 
 // Create a variable to store which question we are on
 let questionNumber = 0
@@ -97,19 +97,22 @@ start.addEventListener('click', function (event) {
 
     // Run interval every 1 second to start countdown timer
     let myInterval = setInterval(function () {
+        // decrement of the countdown timer by 1 on each interval
         countDownTimer--
+        
+        // update the content of the time element to the count down 
         time.textContent = countDownTimer
-        console.log(questionNumber + ' ' + questions.length)
+        //console.log(questionNumber + ' ' + questions.length)
 
-        if (gameEnded) {
+        // If the game has ended or count down timer has expired, clear the interval & stop the game
+        if (gameEnded || countDownTimer <= 0) {
+            gameFinished()
             clearInterval(myInterval)
         }
     }, 1000);
 
     // Call showQuestion function to display the question on the screen
     showQuestion(questions[questionNumber])
-
-
 
 })
 
