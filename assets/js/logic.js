@@ -30,8 +30,11 @@
 
 // Set variable to HTML elements
 
-// Assign variable to button '#submit'
+// Assign variable to button '#start' (starts the game)
 let start = document.querySelector('#start')
+
+// Assign variable to button '#submit' (saves score)
+let submit = document.querySelector('#submit')
 
 // Assign variable to span html element '#time'
 let time = document.querySelector('#time')
@@ -43,7 +46,6 @@ let countDownTimer = 50
 let questionNumber = 0
 
 // Create a variable to keep the user score
-
 let userScore = 0
 
 // Assign variable to div html element '#start-screen'
@@ -65,7 +67,6 @@ let questionTitle = document.querySelector('#question-title')
 let questionChoices = document.querySelector('#choices')
 
 //Assign variable to span element #final-score
-
 let finalScore = document.querySelector('#final-score')
 
 // Assign variable to keep track if the game has ended or not
@@ -75,6 +76,9 @@ let gameEnded = false
 let correctSound = new Audio('./assets/sfx/correct.wav')
 
 let incorrectSound = new Audio('./assets/sfx/incorrect.wav')
+
+// Assign variable to html input element #initials
+let userInitials = document.querySelector('#initials')
 
 // Start a timer when 'Start Quiz' button is clicked
 // 1 Need an event listener on the start quiz button click
@@ -103,7 +107,7 @@ start.addEventListener('click', function (event) {
     let myInterval = setInterval(function () {
         // decrement of the countdown timer by 1 on each interval
         countDownTimer--
-        
+
         // update the content of the time element to the count down 
         time.textContent = countDownTimer
         //console.log(questionNumber + ' ' + questions.length)
@@ -119,6 +123,34 @@ start.addEventListener('click', function (event) {
     showQuestion(questions[questionNumber])
 
 })
+
+// Add an event listener (click) on the #submit button on the feedback section
+submit.addEventListener('click', (function (event) {
+
+    // get the value of the userInitials input box value & trim whitespace
+    let initials = userInitials.value.trim()
+
+    //let element = event.target
+    // Check if initials has a valid value
+    if (initials !== '') {
+
+        // Multiply the score by 20 to make it look better on the scoreboard instead of 1,2,3,4 etc
+        let score = userScore * 20
+
+        // Create an object to store the user initial and score
+        let scoreToSubmit = {
+            initial: initials,
+            score: score
+        }
+
+        recordScore(scoreToSubmit)
+    } else {
+        // Provide feedback to the user to enter initials
+        feedbackScreen.textContent = 'Please enter your initials!'
+    }
+
+
+}))
 
 // let questions = [
 //     {
@@ -193,7 +225,7 @@ function checkAnswer(correctAnswer, userAnswer) {
 
         // Show feedback message
         feedbackScreen.textContent = 'Correct!'
-        console.log(correctSound)
+        //console.log(correctSound)
         correctSound.play()
 
         // If the user is incorrect, show feedback, decrease timer
@@ -217,23 +249,48 @@ function checkQuestionCounter() {
     } else {
         gameFinished()
     }
-    // Increment the question Number so we can progress in the quiz
-
 }
 
 // A function to trigger the end of the game
 function gameFinished() {
-    
+
     // set gameEnded variable to true
     gameEnded = true
 
     // Hide the questionScreen
-    questionsScreen.classList.add('hide') 
+    questionsScreen.classList.add('hide')
 
     // Show the End screen element
     endScreen.classList.remove('hide')
 
+    // Display the user score on screen
     finalScore.textContent = userScore * 20
+}
 
+// A function to store the user score in localStorage
+function recordScore(scoreToSubmit) {
 
+    //Initialise an empty array to store the scores as array elements
+    let scores = []
+
+    // If the localStorage item 'scores' is not empty then we want to fetch the current scores and append to them
+    if (localStorage.getItem('scores') !== null) {
+
+        // fetch the current scores string and convert it into an array
+        scores = JSON.parse(localStorage.getItem('scores'))
+
+        // Push the new score record to the scores array
+        scores.push(scoreToSubmit)
+
+        // Save the updated scores to localStorage
+        localStorage.setItem('scores', JSON.stringify(scores))
+
+    }
+    // If the localStorage item 'scores' is empty then we want just need to append to it
+    else {
+        // Push the new score as an array element
+        scores.push(scoreToSubmit)
+        // store the scores array as a string in local storage item 'scores'
+        localStorage.setItem('scores', JSON.stringify(scores))
+    }
 }
