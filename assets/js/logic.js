@@ -283,9 +283,9 @@ function recordScore(scoreToSubmit) {
 
         // Save the updated scores to localStorage
         localStorage.setItem('scores', JSON.stringify(scores))
-        processHighScore()
-        window.location.href = 'highscores.html';
 
+        // call the processHighScore function for re-sorting the high scores
+        processHighScore()
     }
     // If the localStorage item 'scores' is empty then we want just need to append to it
     else {
@@ -294,6 +294,8 @@ function recordScore(scoreToSubmit) {
 
         // store the scores array as a string in local storage item 'scores'
         localStorage.setItem('scores', JSON.stringify(scores))
+
+        // call the processHighScore function for re-sorting the high scores
         processHighScore()
     }
 }
@@ -311,6 +313,6 @@ function processHighScore(){
     
     //console.log(scores)
     localStorage.setItem('scores', JSON.stringify(scores))
-
-    //console.log(localStorage.getItem('scores'))
+    // redirect the user to the highscores.html page
+    window.location.href = 'highscores.html'
 }
