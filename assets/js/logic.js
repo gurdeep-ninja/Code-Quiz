@@ -37,7 +37,7 @@ let start = document.querySelector('#start')
 let time = document.querySelector('#time')
 
 // Create a variable to keep track of the countdown timer
-let countDownTimer = 10
+let countDownTimer = 50
 
 // Create a variable to store which question we are on
 let questionNumber = 0
@@ -64,10 +64,14 @@ let questionTitle = document.querySelector('#question-title')
 // Assign variable to question choices
 let questionChoices = document.querySelector('#choices')
 
+//Assign variable to span element #final-score
+
+let finalScore = document.querySelector('#final-score')
+
 // Assign variable to keep track if the game has ended or not
 let gameEnded = false
 
-// Assign variable for audio clip(s) incorrect/correct
+// Assign variables for audio clip(s) incorrect/correct
 let correctSound = new Audio('./assets/sfx/correct.wav')
 
 let incorrectSound = new Audio('./assets/sfx/incorrect.wav')
@@ -217,13 +221,19 @@ function checkQuestionCounter() {
 
 }
 
+// A function to trigger the end of the game
 function gameFinished() {
-
+    
+    // set gameEnded variable to true
     gameEnded = true
 
+    // Hide the questionScreen
     questionsScreen.classList.add('hide') 
-}
 
-function playSound(sound){
+    // Show the End screen element
+    endScreen.classList.remove('hide')
+
+    finalScore.textContent = userScore * 20
+
 
 }
