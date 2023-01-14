@@ -93,7 +93,7 @@ let userInitials = document.querySelector('#initials')
 // 2. Hide the #start-screen element & show the #questions element
 
 start.addEventListener('click', function (event) {
-
+    
     // Show initial countdown value before starting timer
     time.textContent = countDownTimer
 
@@ -160,7 +160,6 @@ submit.addEventListener('click', (function (event) {
 //     },
 
 function showQuestion(question) {
-
 
     // Reset the question
     questionTitle.innerHTML = ''
@@ -285,13 +284,14 @@ function recordScore(scoreToSubmit) {
         // Save the updated scores to localStorage
         localStorage.setItem('scores', JSON.stringify(scores))
         processHighScore()
+        window.location.href = 'highscores.html';
 
     }
     // If the localStorage item 'scores' is empty then we want just need to append to it
     else {
         // Push the new score as an array element
         scores.push(scoreToSubmit)
-        
+
         // store the scores array as a string in local storage item 'scores'
         localStorage.setItem('scores', JSON.stringify(scores))
         processHighScore()
