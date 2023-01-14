@@ -113,7 +113,7 @@ submit.addEventListener('click', (function (event) {
 
 // add an event listnere on the html input #initials
 userInitials.addEventListener('focus',function(){
-    
+
     // Set the feedbackScreen text content to empty
     feedbackScreen.textContent = ''
 })
@@ -153,7 +153,7 @@ function showQuestion(question) {
         // Assign choiceText variable to the string in the question.choices array at position [i]
         choiceText = question.choices[i]
 
-        // Add an event listner on our newly created choice button
+        // Add an event listener(click) on our newly created choice button
         // this is then used to figure out which choice has been clicked and what the correct answer is.
         choice.addEventListener('click', function (event) {
 
@@ -170,6 +170,13 @@ function showQuestion(question) {
 
             // the checkAnswer() function will check if the choice is correct
             checkAnswer(correctAnswer, userChoice)
+
+        })
+
+        // Add an event listener(mouseleave) on our newly created choice button
+        choice.addEventListener('mouseleave', function(){
+            // Clears the feedbackSCreen textContent
+            feedbackScreen.textContent = ''
 
         })
         // Append the button to the questionChoices element
