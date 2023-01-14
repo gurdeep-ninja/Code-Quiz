@@ -1,7 +1,10 @@
 // Assign variable to order list #highscores
 let highscores = document.querySelector('#highscores')
 
-console.log(highscores)
+// Assign variable to button '#clear' (clear the localObject 'scores')
+let clear = document.querySelector('#clear')
+
+//console.log(highscores)
 
 displayScores()
 function displayScores() {
@@ -22,5 +25,20 @@ function displayScores() {
             // append the li to the #highscores <ol> element
             highscores.appendChild(li)
         })
-    }
+    } 
 }
+
+// Add an event listner ('click') to the clear button
+clear.addEventListener('click', function(){
+
+    //console.log("clicked")
+    // Only attemt to clear the 'scores' item in localStorage if it exists
+    if (localStorage.getItem('scores') !== null) {
+        
+        // removes the scores from localStorage
+        localStorage.removeItem('scores')
+
+        // clear the html of the high scores
+        highscores.innerHTML = ''
+    }
+})
