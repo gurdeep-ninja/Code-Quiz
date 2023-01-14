@@ -8,7 +8,7 @@ let submit = document.querySelector('#submit')
 let time = document.querySelector('#time')
 
 // Create a variable to keep track of the countdown timer
-let countDownTimer = 50
+let countDownTimer = 75
 
 // Create a variable to store which question we are on
 let questionNumber = 0
