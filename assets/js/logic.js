@@ -1,35 +1,3 @@
-// AS A coding boot camp student
-// I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-// SO THAT I can gauge my progress compared to my peers
-
-// Acceptance Criteria
-// Create a code quiz that contains the following requirements:
-
-// A start button that when clicked a timer starts and the first question appears.
-
-// Questions contain click event for each answer.
-// When answer is clicked, the next question appears
-// If the answer clicked was incorrect then subtract time from the clock
-// The quiz should end when all questions are answered or the timer reaches 0.
-
-// When the game ends, it should display their score and give the user the ability to save their initials and their score
-
-
-// Tasks required
-
-// Record which answer the user clicks on
-
-// Check if answer is correct
-//// if the answer is correct 'show correct' message and display next question
-///// Record score
-//// if the answer is wrong, subtract time from the timer & display next question
-
-// If all the questions are answered OR the timer runs out, end the quiz
-
-// Show the score to the user and let them save their result
-
-// Set variable to HTML elements
-
 // Assign variable to button '#start' (starts the game)
 let start = document.querySelector('#start')
 
@@ -80,20 +48,11 @@ let incorrectSound = new Audio('./assets/sfx/incorrect.wav')
 // Assign variable to html input element #initials
 let userInitials = document.querySelector('#initials')
 
-// Start a timer when 'Start Quiz' button is clicked
-// 1 Need an event listener on the start quiz button click
 
-// Display the first question & multiple choice answers to the user
-// 1 need some questions and answers for user.
-// 2 could use an
-
-// Task 1 - Starting the quiz
-
-// 1. Event listener on button click - starts the quiz
-// 2. Hide the #start-screen element & show the #questions element
+// Add an event listener (click) on the #start button
 
 start.addEventListener('click', function (event) {
-    
+
     // Show initial countdown value before starting timer
     time.textContent = countDownTimer
 
@@ -152,12 +111,9 @@ submit.addEventListener('click', (function (event) {
 
 }))
 
-// let questions = [
-//     {
-//         question: 'Commonly used data types DO NOT include:',
-//         choices: ['strings','booleans','alerts','numbers'],
-//         correctAnswer: 'booleans'
-//     },
+
+// A function to show the question on the screen to the player
+// the parameter(question) expected is a question object{} (see questions.js for data structure)
 
 function showQuestion(question) {
 
@@ -175,28 +131,37 @@ function showQuestion(question) {
     // setting j for number visualisation against choice
     let j = 1;
 
+    // Loop through all of the choices for the question
     for (i = 0; i < question.choices.length; i++) {
 
         // Create a button html element (choice)
         let choice = document.createElement('button')
 
-        // create an attribute called choice (will use to verify correct answer)
+        // create an attribute called data-choice and assign the choice value (e.g. 'Boolean','String' etc) (will use to verify correct answer)
         choice.dataset.choice = question.choices[i]
 
-        // Set the text of the button (choice)
+        // Set the text of the button to a choice (e.g. 'Boolean','String' etc)
         choice.textContent = j + '. ' + question.choices[i]
 
+        // Assign choiceText variable to the string in the question.choices array at position [i]
         choiceText = question.choices[i]
 
+        // Add an event listner on our newly created choice button
+        // this is then used to figure out which choice has been clicked and what the correct answer is.
         choice.addEventListener('click', function (event) {
+
+            // we are assigning a variable element to the choice that was clicked on
             let element = event.target
 
+            // assign the users choice to a variable
             let userChoice = (element.dataset.choice)
 
+            // assign the correct answer to a variable
             let correctAnswer = (question.correctAnswer)
 
             //console.log(correctAnswer)
 
+            // the checkAnswer() function will check if the choice is correct
             checkAnswer(correctAnswer, userChoice)
 
         })
@@ -208,6 +173,9 @@ function showQuestion(question) {
     }
 }
 
+
+// A function for checking if the choice is the correct answer
+// expects two parameters (the correct answer, and the players choice)
 function checkAnswer(correctAnswer, userAnswer) {
 
     //console.log('Correct: ' +correctAnswer)
@@ -224,6 +192,7 @@ function checkAnswer(correctAnswer, userAnswer) {
 
         // Show feedback message
         feedbackScreen.textContent = 'Correct!'
+
         //console.log(correctSound)
         correctSound.play()
 
@@ -234,18 +203,26 @@ function checkAnswer(correctAnswer, userAnswer) {
 
         // Show feedback message
         feedbackScreen.textContent = 'Incorrect!'
+
+        // Play the incorrect sound audio file
         incorrectSound.play()
     }
+    // Increment the questionNumber by 1 (this is to keep track of what question we are on)
     questionNumber++
+
+    // call the checkQuestionCounter() function
     checkQuestionCounter()
 
 }
 
+// A function to check what question we are currently on.
+// If there are outstanding questions to be answered,
 function checkQuestionCounter() {
     // If the user hasn't answered all the question, continue the quiz
     if (questionNumber !== questions.length) {
         showQuestion(questions[questionNumber])
     } else {
+        // If the user has answered all the questions, then call the gameFinished() function
         gameFinished()
     }
 }
@@ -253,7 +230,7 @@ function checkQuestionCounter() {
 // A function to trigger the end of the game
 function gameFinished() {
 
-    // set gameEnded variable to true
+    // set gameEnded variable to true (this is used in myInterval to control game state )
     gameEnded = true
 
     // Hide the questionScreen
@@ -267,9 +244,11 @@ function gameFinished() {
 }
 
 // A function to store the user score in localStorage
+// accepts a single parameter scoreToSubmit which is an object{}
 function recordScore(scoreToSubmit) {
 
     //Initialise an empty array to store the scores as array elements
+    // We are going to push an array of objects to our localStorage
     let scores = []
 
     // If the localStorage item 'scores' is not empty then we want to fetch the current scores and append to them
@@ -301,17 +280,22 @@ function recordScore(scoreToSubmit) {
 }
 
 // A function to sort the high scores and re-save
-function processHighScore(){
+function processHighScore() {
 
+
+    // Create a scores array based on the data within 'scores' localStorage item
     let scores = JSON.parse(localStorage.getItem('scores'))
     //console.log(scores)
-    scores.sort(function(value1,value2){
+
+    // use the array.sort function but override it to change the order to High > Low
+    scores.sort(function (value1, value2) {
 
         return value2.score - value1.score
 
     })
-    
+
     //console.log(scores)
+    // re-save the 'scores' localStorage item to the newly sorted array
     localStorage.setItem('scores', JSON.stringify(scores))
     // redirect the user to the highscores.html page
     window.location.href = 'highscores.html'
