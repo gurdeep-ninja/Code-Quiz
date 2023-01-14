@@ -64,7 +64,13 @@ let questionTitle = document.querySelector('#question-title')
 // Assign variable to question choices
 let questionChoices = document.querySelector('#choices')
 
+// Assign variable to keep track if the game has ended or not
 let gameEnded = false
+
+// Assign variable for audio clip(s) incorrect/correct
+let correctSound = new Audio('./assets/sfx/correct.wav')
+
+let incorrectSound = new Audio('./assets/sfx/incorrect.wav')
 
 // Start a timer when 'Start Quiz' button is clicked
 // 1 Need an event listener on the start quiz button click
@@ -180,6 +186,8 @@ function checkAnswer(correctAnswer, userAnswer) {
 
         // Show feedback message
         feedbackScreen.textContent = 'Correct!'
+        console.log(correctSound)
+        correctSound.play()
 
         // If the user is incorrect, show feedback, decrease timer
     } else {
@@ -188,6 +196,7 @@ function checkAnswer(correctAnswer, userAnswer) {
 
         // Show feedback message
         feedbackScreen.textContent = 'Incorrect!'
+        incorrectSound.play()
     }
     questionNumber++
     checkQuestionCounter()
@@ -210,4 +219,8 @@ function gameFinished() {
     gameEnded = true
 
     questionsScreen.classList.add('hide') 
+}
+
+function playSound(sound){
+
 }
