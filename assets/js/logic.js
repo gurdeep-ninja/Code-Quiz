@@ -111,6 +111,13 @@ submit.addEventListener('click', (function (event) {
 
 }))
 
+// add an event listnere on the html input #initials
+userInitials.addEventListener('focus',function(){
+    
+    // Set the feedbackScreen text content to empty
+    feedbackScreen.textContent = ''
+})
+
 
 // A function to show the question on the screen to the player
 // the parameter(question) expected is a question object{} (see questions.js for data structure)
